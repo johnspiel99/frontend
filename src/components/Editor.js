@@ -14,7 +14,8 @@ const Editor = () => {
     // Save content to local storage and refresh the page
     const handleSave = () => {
         localStorage.setItem('editorContent', content);
-        alert('Content saved!');
+        alert('Content saved!'); // Display notification
+        window.location.reload(); // Refresh the page
     };
 
     // Load saved content from local storage
@@ -47,7 +48,7 @@ Editor.modules = {
         ['bold', 'italic', 'underline'],
         ['link', 'image'],
         [{ 'align': [] }],
-        ['clean']                                         
+        ['clean']
     ],
 };
 

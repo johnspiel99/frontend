@@ -1,53 +1,70 @@
-body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-.App-header {
-    background-color: var(--header-bg);
-    padding: 20px;
-}
-
-.App-header nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+/* Header styling */
+.header {
+    width: 100%;
+    background-color: #202020; /* Dark background for header */
+    padding: 10px 20px;
+    color: #fdfcfc; /* Light text color for contrast */
     display: flex;
-    justify-content: flex-end; /* Align items to the right */
-    align-items: center; /* Align items in the center vertically */
-}
-
-.App-header nav ul li {
-    margin-right: 10px; /* Reduce space between buttons */
-}
-
-.nav-button {
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .header-title {
+    margin: 0;
+    font-size: 24px;
+    color: #fdfcfc;
+  }
+  
+  nav {
+    margin: 0;
+  }
+  
+  .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding: 0;
+  }
+  
+  .nav-link {
     text-decoration: none;
-    color: var(--text-color);
+    color: #007bff; /* Light blue color for links */
     font-size: 16px;
-    padding: 10px 15px;
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline;
+  }
+  
+  .mode-toggle {
+    background: none;
     border: none;
-    background: none; /* Remove background to eliminate box */
+    color: #007bff;
     cursor: pointer;
-    transition: color 0.3s;
-}
-
-.nav-button:hover {
-    color: #61dafb; /* Change color on hover */
-}
-
-/* CSS Variables for light and dark mode */
-:root {
-    --header-bg: #282c34;
-    --text-color: white;
-}
-
-body.dark-mode :root {
-    --header-bg: #1e1e1e;
-    --text-color: white;
-}
-
-body :root {
-    --header-bg: #282c34;
-    --text-color: white;
-}
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .mode-toggle:hover {
+    text-decoration: underline;
+  }
+  
+  /* Dark Mode Styling */
+  .dark-mode .header {
+    background-color: #333;
+  }
+  
+  .dark-mode .nav-link {
+    color: #f4f4f4; /* Light text color in dark mode */
+  }
+  
+  .dark-mode .mode-toggle {
+    color: #f4f4f4;
+  }
+  

@@ -1,59 +1,89 @@
-/* Contact Us Page Styling */
+/* Contact.css */
 
+/* Basic styles for centering */
 .contact-us {
-    background-color: #1d1d1d;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 40px auto;
-    text-align: center;
-}
-
-.contact-us h1 {
-    font-size: 0px;
-    color: #4CAF50;
-    margin-bottom: 20px;
-}
-
-.contact-us p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.contact-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-}
-
-.contact-form label {
-    font-weight: bold;
-    text-align: left;
-    margin-bottom: 5px;
-}
-
-.contact-form input,
-.contact-form textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Ensure the content is vertically centered */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding-top: 10%;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  p {
+    margin-bottom: 20px;
+    max-width: 600px; /* Optional: limit the width of the paragraph */
+    text-align: center;
+  }
+  
+  .contact-form {
+    background-color: var(--form-background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px; /* Optional: limit the width of the form */
     width: 100%;
-}
-
-.contact-form button {
-    background-color: #171717;
-    color: #fff;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  input, textarea {
+    width: 100%;
     padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  button {
+    background-color: blue;
+    color: var(--button-text-color);
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.contact-form button:hover {
-    background-color: #161716;
-}
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: var(--button-hover-background-color);
+  }
+  
+  /* Dark Mode Styles */
+  body.dark-mode .contact-us {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .contact-form {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+  }
+  
+  body.dark-mode input, 
+  body.dark-mode textarea {
+    border: 1px solid #444;
+    background-color: #2e2e2e;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode button {
+    background-color: #333;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode button:hover {
+    background-color: #555;
+  }
+  

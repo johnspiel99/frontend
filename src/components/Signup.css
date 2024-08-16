@@ -1,104 +1,62 @@
-/* CSS Variables for light and dark mode */
-:root {
-  --background-light: #ffffff;
-  --background-dark: #121212;
-  --text-light: #000000;
-  --text-dark: #ffffff;
-  --button-bg-light: #4CAF50;
-  --button-bg-dark: #00796B;
-}
-
-body {
-  background-color: var(--background-light);
-  color: var(--text-light);
-}
-
-body.dark-mode {
-  background-color: var(--background-dark);
-  color: var(--text-dark);
-}
-
-.signup {
-  padding: 20px;
-  max-width: 600px;
-  margin: auto;
-  background: var(--background-light);
-  border-radius: 8px;
-}
-
-.signup.dark-mode {
-  background: var(--background-dark);
-}
-
-h1 {
-  text-align: center;
-  color: var(--text-light);
-}
-
-.form {
+/* Container for centering the signup form */
+.signup-container {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure it takes full viewport height */
+  padding: 20px;
+  background-color: #f4f4f4; /* Light background for contrast */
 }
 
-label {
+.signup-form {
+  background-color: #fff; /* White background for the form */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* Maximum width of the form */
+  width: 100%;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.signup-form h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333; /* Dark text color for header */
+}
+
+.signup-form label {
+  display: block;
+  margin-bottom: 8px;
   font-weight: bold;
 }
 
-input[type="text"],
-input[type="email"],
-textarea {
+.signup-form input[type="email"], 
+.signup-form input[type="password"] {
+  width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-input[type="submit"] {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: var(--button-bg-light);
-  color: var(--text-light);
-  cursor: pointer;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   font-size: 16px;
 }
 
-input[type="submit"]:hover {
-  background-color: #45a049;
+.signup-form button {
+  background-color: #4CAF50; /* Green background for button */
+  color: #fff; /* White text color */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
 }
 
-input[type="submit"].dark-mode {
-  background-color: var(--button-bg-dark);
+.signup-form button:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
 }
 
-input[type="submit"].dark-mode:hover {
-  background-color: #004d40;
+.signup-form p {
+  margin-top: 20px;
+  color: #4CAF50; /* Green text color for success message */
 }
-
-.terms {
-  text-align: center;
-}
-
-.login-signup {
-  text-align: center;
-  margin-top: 10px;
-}
-
-a {
-  color: #007BFF;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.email-verify svg {
-  display: block;
-  margin: 0 auto;
-  fill: var(--text-light);
-}
-
-.email-verify p {
-  text-align: center;
-}
-

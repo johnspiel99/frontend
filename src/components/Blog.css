@@ -1,8 +1,9 @@
 .blog {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    padding-top: 10%;
     color: black;
+    
 }
 
 .blog h1 {
@@ -17,12 +18,13 @@
 
 .button-group button {
     margin-right: 10px;
-    padding: 10px 15px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     background-color: #007bff;
     color: rgb(16, 15, 15);
     cursor: pointer;
+    
 }
 
 .button-group button:hover {

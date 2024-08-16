@@ -9,12 +9,14 @@ const Blog = () => {
             title: 'First Blog Post',
             content: 'This is the content of the first blog post.',
             tags: ['general', 'introduction'],
+            date: new Date().toISOString().split('T')[0], // Default date format
         },
         {
             id: 2,
             title: 'Second Blog Post',
             content: 'This is the content of the second blog post.',
             tags: ['update', 'news'],
+            date: new Date().toISOString().split('T')[0], // Default date format
         },
     ]);
 
@@ -22,6 +24,7 @@ const Blog = () => {
         title: '',
         content: '',
         tags: '',
+        date: new Date().toISOString().split('T')[0], // Default date format
     });
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -48,7 +51,7 @@ const Blog = () => {
         e.preventDefault();
         if (editMode) {
             const updatedPosts = posts.map((post) =>
-                post.id === postIdToEdit ? { ...post, ...newPost, tags: newPost.tags.split(',') } : post
+                post.id === postIdToEdit ? { ...post, ...newPost, tags: newPost.tags.split(','), date: newPost.date } : post
             );
             setPosts(updatedPosts);
             setEditMode(false);
@@ -62,13 +65,13 @@ const Blog = () => {
             };
             setPosts([...posts, postToAdd]);
         }
-        setNewPost({ title: '', content: '', tags: '' });
+        setNewPost({ title: '', content: '', tags: '', date: new Date().toISOString().split('T')[0] });
         setShowForm(false); // Hide the form after submitting
     };
 
     const handleEdit = (postId) => {
         const postToEdit = posts.find((post) => post.id === postId);
-        setNewPost({ title: postToEdit.title, content: postToEdit.content, tags: postToEdit.tags.join(',') });
+        setNewPost({ title: postToEdit.title, content: postToEdit.content, tags: postToEdit.tags.join(','), date: postToEdit.date });
         setEditMode(true);
         setPostIdToEdit(postId);
         setShowForm(true); // Show the form for editing
@@ -86,7 +89,7 @@ const Blog = () => {
 
     return (
         <div className="blog">
-            <h1>Blog</h1>
+            <h1>Notes</h1>
             <div className="button-group">
                 <button onClick={() => setShowSearch(!showSearch)}>
                     {showSearch ? 'Hide Search' : 'Show Search'}
@@ -118,6 +121,7 @@ const Blog = () => {
                             <h2>{post.title}</h2>
                             <p>{post.content}</p>
                             <p><strong>Tags:</strong> {post.tags.join(', ')}</p>
+                            <p><strong>Date:</strong> {new Date(post.date).toLocaleDateString()}</p>
                             <button onClick={() => handleEdit(post.id)}>Edit</button>
                             <button onClick={() => handleDelete(post.id)}>Delete</button>
                         </div>
@@ -153,6 +157,15 @@ const Blog = () => {
                             name="tags"
                             value={newPost.tags}
                             onChange={handleChange}
+                        />
+                        <label htmlFor="date">Date:</label>
+                        <input
+                            type="date"
+                            id="date"
+                            name="date"
+                            value={newPost.date}
+                            onChange={handleChange}
+                            required
                         />
                         <button type="submit">{editMode ? 'Update Post' : 'Add Post'}</button>
                     </form>
