@@ -1,0 +1,53 @@
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.App-header {
+    background-color: var(--header-bg);
+    padding: 20px;
+}
+
+.App-header nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center; /* Align items in the center vertically */
+}
+
+.App-header nav ul li {
+    margin-right: 10px; /* Reduce space between buttons */
+}
+
+.nav-button {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    background: none; /* Remove background to eliminate box */
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.nav-button:hover {
+    color: #61dafb; /* Change color on hover */
+}
+
+/* CSS Variables for light and dark mode */
+:root {
+    --header-bg: #282c34;
+    --text-color: white;
+}
+
+body.dark-mode :root {
+    --header-bg: #1e1e1e;
+    --text-color: white;
+}
+
+body :root {
+    --header-bg: #282c34;
+    --text-color: white;
+}

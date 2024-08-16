@@ -1,0 +1,35 @@
+{
+    "notes": [
+      {
+        "id": 1,
+        "title": "Introduction to HTML",
+        "content": "HTML stands for HyperText Markup Language. It is used to create web pages and web applications.",
+        "tags": ["HTML", "Basics", "Web Development"]
+      },
+      {
+        "id": 2,
+        "title": "CSS Fundamentals",
+        "content": "CSS stands for Cascading Style Sheets. It is used to style and layout web pages.",
+        "tags": ["CSS", "Styling", "Web Development"]
+      },
+      {
+        "id": 3,
+        "title": "JavaScript Basics",
+        "content": "JavaScript is a programming language used to make web pages interactive.",
+        "tags": ["JavaScript", "Programming", "Web Development"]
+      },
+      {
+        "id": 4,
+        "title": "React Introduction",
+        "content": "React is a JavaScript library for building user interfaces.",
+        "tags": ["React", "JavaScript", "Web Development"]
+      },
+      {
+        "id": 5,
+        "title": "Version Control with Git",
+        "content": "Git is a version control system for tracking changes in source code during software development.",
+        "tags": ["Git", "Version Control", "Collaboration"]
+      }
+    ]
+  }
+  
