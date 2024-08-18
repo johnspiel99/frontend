@@ -11,7 +11,7 @@ const Home = () => {
         </h1>
         <h2>Note Taking App</h2>
         <p className="para">
-          All your notes, synced on all your devices. Get Simplenote now for iOS,
+          All your notes, synced on all your devices. Get Note-Taking app now for iOS,
           <br /> Android, Mac, Windows, Linux, or in your browser.
         </p>
         <Link to="/signup">

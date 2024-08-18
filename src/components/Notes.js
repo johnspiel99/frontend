@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import './Blog.css'; // Import the CSS file for styling
+import './Notes.css'; // Import the CSS file for styling
 import Editor from './Editor'; // Import the Editor component
 
-const Blog = () => {
-    const [posts, setPosts] = useState([
+const Notes = () => {
+    const [notes, setNotes] = useState([
         {
             id: 1,
-            title: 'First Blog Post',
-            content: 'This is the content of the first blog post.',
+            title: 'First Note',
+            content: 'This is the content of the first note.',
             tags: ['general', 'introduction'],
             date: new Date().toISOString().split('T')[0], // Default date format
         },
         {
             id: 2,
-            title: 'Second Blog Post',
-            content: 'This is the content of the second blog post.',
+            title: 'Second Note',
+            content: 'This is the content of the second note.',
             tags: ['update', 'news'],
             date: new Date().toISOString().split('T')[0], // Default date format
         },
     ]);
 
-    const [newPost, setNewPost] = useState({
+    const [newNote, setNewNote] = useState({
         title: '',
         content: '',
         tags: '',
@@ -29,16 +29,16 @@ const Blog = () => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [editMode, setEditMode] = useState(false);
-    const [postIdToEdit, setPostIdToEdit] = useState(null);
+    const [noteIdToEdit, setNoteIdToEdit] = useState(null);
     const [showSearch, setShowSearch] = useState(false);
     const [showForm, setShowForm] = useState(false);
-    const [showPosts, setShowPosts] = useState(false);
+    const [showNotes, setShowNotes] = useState(false);
     const [showEditor, setShowEditor] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setNewPost({
-            ...newPost,
+        setNewNote({
+            ...newNote,
             [name]: value,
         });
     };
@@ -50,41 +50,46 @@ const Blog = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (editMode) {
-            const updatedPosts = posts.map((post) =>
-                post.id === postIdToEdit ? { ...post, ...newPost, tags: newPost.tags.split(','), date: newPost.date } : post
+            const updatedNotes = notes.map((note) =>
+                note.id === noteIdToEdit ? { ...note, ...newNote, tags: newNote.tags.split(','), date: newNote.date } : note
             );
-            setPosts(updatedPosts);
+            setNotes(updatedNotes);
             setEditMode(false);
-            setPostIdToEdit(null);
+            setNoteIdToEdit(null);
         } else {
-            const newId = posts.length ? posts[posts.length - 1].id + 1 : 1;
-            const postToAdd = {
+            const newId = notes.length ? notes[notes.length - 1].id + 1 : 1;
+            const noteToAdd = {
                 id: newId,
-                ...newPost,
-                tags: newPost.tags.split(','),
+                ...newNote,
+                tags: newNote.tags.split(','),
             };
-            setPosts([...posts, postToAdd]);
+            setNotes([...notes, noteToAdd]);
         }
-        setNewPost({ title: '', content: '', tags: '', date: new Date().toISOString().split('T')[0] });
+        setNewNote({ title: '', content: '', tags: '', date: new Date().toISOString().split('T')[0] });
         setShowForm(false); // Hide the form after submitting
     };
 
-    const handleEdit = (postId) => {
-        const postToEdit = posts.find((post) => post.id === postId);
-        setNewPost({ title: postToEdit.title, content: postToEdit.content, tags: postToEdit.tags.join(','), date: postToEdit.date });
+    const handleEdit = (noteId) => {
+        const noteToEdit = notes.find((note) => note.id === noteId);
+        setNewNote({
+            title: noteToEdit.title,
+            content: noteToEdit.content,
+            tags: noteToEdit.tags.join(','),
+            date: noteToEdit.date,
+        });
         setEditMode(true);
-        setPostIdToEdit(postId);
+        setNoteIdToEdit(noteId);
         setShowForm(true); // Show the form for editing
     };
 
-    const handleDelete = (postId) => {
-        setPosts(posts.filter((post) => post.id !== postId));
+    const handleDelete = (noteId) => {
+        setNotes(notes.filter((note) => note.id !== noteId));
     };
 
-    const filteredPosts = posts.filter((post) =>
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.join(' ').toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredNotes = notes.filter((note) =>
+        note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        note.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        note.tags.join(' ').toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
@@ -95,10 +100,10 @@ const Blog = () => {
                     {showSearch ? 'Hide Search' : 'Show Search'}
                 </button>
                 <button onClick={() => setShowForm(!showForm)}>
-                    {showForm ? (editMode ? 'Cancel Edit' : 'Hide Form') : (editMode ? 'Edit Post' : 'Add New Post')}
+                    {showForm ? (editMode ? 'Cancel Edit' : 'Hide Form') : (editMode ? 'Edit Notes' : 'Add New Notes')}
                 </button>
-                <button onClick={() => setShowPosts(!showPosts)}>
-                    {showPosts ? 'Hide Posts' : 'Show Posts'}
+                <button onClick={() => setShowNotes(!showNotes)}>
+                    {showNotes ? 'Hide Notes' : 'Show Notes'}
                 </button>
                 <button onClick={() => setShowEditor(!showEditor)}>
                     {showEditor ? 'Hide Editor' : 'Show Editor'}
@@ -108,36 +113,36 @@ const Blog = () => {
                 <div className="search-bar">
                     <input
                         type="text"
-                        placeholder="Search posts..."
+                        placeholder="Search notes..."
                         value={searchQuery}
                         onChange={handleSearchChange}
                     />
                 </div>
             )}
-            {showPosts && (
+            {showNotes && (
                 <div className="blog-posts">
-                    {filteredPosts.map((post) => (
-                        <div key={post.id} className="blog-post">
-                            <h2>{post.title}</h2>
-                            <p>{post.content}</p>
-                            <p><strong>Tags:</strong> {post.tags.join(', ')}</p>
-                            <p><strong>Date:</strong> {new Date(post.date).toLocaleDateString()}</p>
-                            <button onClick={() => handleEdit(post.id)}>Edit</button>
-                            <button onClick={() => handleDelete(post.id)}>Delete</button>
+                    {filteredNotes.map((note) => (
+                        <div key={note.id} className="blog-post">
+                            <h2>{note.title}</h2>
+                            <p>{note.content}</p>
+                            <p><strong>Tags:</strong> {note.tags.join(', ')}</p>
+                            <p><strong>Date:</strong> {new Date(note.date).toLocaleDateString()}</p>
+                            <button id="edit" onClick={() => handleEdit(note.id)}>Edit</button>
+                            <button id="delete" onClick={() => handleDelete(note.id)}>Delete</button>
                         </div>
                     ))}
                 </div>
             )}
             {showForm && (
                 <div>
-                    <h2>{editMode ? 'Edit Post' : 'Add a New Post'}</h2>
+                    <h2>{editMode ? 'Edit Note' : 'Add a New Note'}</h2>
                     <form className="blog-form" onSubmit={handleSubmit}>
                         <label htmlFor="title">Title:</label>
                         <input
                             type="text"
                             id="title"
                             name="title"
-                            value={newPost.title}
+                            value={newNote.title}
                             onChange={handleChange}
                             required
                         />
@@ -145,7 +150,7 @@ const Blog = () => {
                         <textarea
                             id="content"
                             name="content"
-                            value={newPost.content}
+                            value={newNote.content}
                             onChange={handleChange}
                             rows="5"
                             required
@@ -155,7 +160,7 @@ const Blog = () => {
                             type="text"
                             id="tags"
                             name="tags"
-                            value={newPost.tags}
+                            value={newNote.tags}
                             onChange={handleChange}
                         />
                         <label htmlFor="date">Date:</label>
@@ -163,11 +168,11 @@ const Blog = () => {
                             type="date"
                             id="date"
                             name="date"
-                            value={newPost.date}
+                            value={newNote.date}
                             onChange={handleChange}
                             required
                         />
-                        <button type="submit">{editMode ? 'Update Post' : 'Add Post'}</button>
+                        <button type="submit">{editMode ? 'Update Note' : 'Add Note'}</button>
                     </form>
                 </div>
             )}
@@ -176,4 +181,4 @@ const Blog = () => {
     );
 };
 
-export default Blog;
+export default Notes;

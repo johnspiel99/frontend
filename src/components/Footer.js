@@ -23,7 +23,7 @@ function Footer() {
                         <a href="https://twitter.com/login" className="fab fa-twitter" target="_blank" rel="noopener noreferrer" title="Login with Twitter">
                             <FaTwitter />
                         </a>
-                        <a href="https://www.instagram.com/accounts/login/" className="fab fa-instagram" target="_blank" rel="noopener noreferrer" title="Login with Instagram">
+                        <a href="https://www.instagram.com/accounts/login/" className="fab fa-instagram" id="inst"target="_blank" rel="noopener noreferrer" title="Login with Instagram">
                             <FaInstagram />
                         </a>
                         <a href="https://www.linkedin.com/login" className="fab fa-linkedin" target="_blank" rel="noopener noreferrer" title="Login with LinkedIn">

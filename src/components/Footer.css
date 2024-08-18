@@ -1,63 +1,65 @@
-.footer {
-    background-color: #03f7e2;
-    color: #060606;
-    padding-top: 70px;
-    text-align: center;
-    margin-bottom: 0%;
-}
 
-.box-container {
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+  }
+  
+  /* Main content container should take up available space */
+  .main-content {
+    flex: 1; /* This will make sure the content takes up available space */
+  }
+  
+  .footer {
+    background-color: #333; /* Adjust as needed */
+    color: #fff; /* Adjust as needed */
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer .box-container {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    height: fit-content;
-}
-
-.box {
-    width: 23%;
-    margin: 10px;
-    text-align: left;
-}
-
-.box h3 {
-    margin-bottom: 10px;
-    font-size: 1.2em;
-}
-
-.box p {
-    margin-bottom: 10px;
-}
-
-.share a {
-    color: #fff;
-    margin: 0 10px;
-    font-size: 1.5em;
-    text-decoration: none;
-}
-
-.links {
-    display: block;
-    color: #fff;
-    margin: 5px 0;
-    text-decoration: none;
-}
-
-.links i {
-    margin-right: 10px;
-}
-
-
-.email {
+  }
+  
+  .footer .box {
+    flex: 1;
+    padding: 1rem;
+    max-width: 300px;
+  }
+  
+  .footer .share a {
+    margin: 0 0.5rem;
+  }
+  
+  .footer .links {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer .email {
     width: 70%;
-    padding: 10px;
-    margin: 10px 0;
-}
-
-.payment-img {
-    width: 100px;
-    margin-top: 10px;
-}
-
-.credit {
-    margin-top: 20px;
-}
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  .footer .btn {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .credit {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
