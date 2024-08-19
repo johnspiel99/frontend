@@ -41,7 +41,7 @@ const App = () => {
                     <Route path="/home" element={<Home />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/Notes" element={<Notes />} />
+                    <Route path='/blog' element={<Notes />} />
                     {/* Route for Carousel removed */}
                 </Routes>
                 {/* Conditionally render the Swiper carousel */}

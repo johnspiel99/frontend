@@ -127,8 +127,8 @@ const Notes = () => {
                             <p>{note.content}</p>
                             <p><strong>Tags:</strong> {note.tags.join(', ')}</p>
                             <p><strong>Date:</strong> {new Date(note.date).toLocaleDateString()}</p>
-                            <button id="edit" onClick={() => handleEdit(note.id)}>Edit</button>
-                            <button id="delete" onClick={() => handleDelete(note.id)}>Delete</button>
+                            <button className="edit" onClick={() => handleEdit(note.id)}>Edit</button>
+                            <button className="delete" onClick={() => handleDelete(note.id)}>Delete</button>
                         </div>
                     ))}
                 </div>

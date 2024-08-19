@@ -18,7 +18,7 @@
   .header-title {
     margin: 0;
     font-size: 24px;
-    color: #fdfcfc;
+    color: #FFFF00;
   }
   
   nav {
@@ -34,7 +34,7 @@
   
   .nav-link {
     text-decoration: none;
-    color: #007bff; /* Light blue color for links */
+    color: Cyan; /* Light blue color for links */
     font-size: 16px;
   }
   

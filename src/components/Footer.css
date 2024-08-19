@@ -16,7 +16,7 @@ html, body {
   }
   
   .footer {
-    background-color: #333; /* Adjust as needed */
+    background-color: deeppink; /* Adjust as needed */
     color: #fff; /* Adjust as needed */
     text-align: center;
     padding: 1rem;
@@ -35,27 +35,33 @@ html, body {
     flex: 1;
     padding: 1rem;
     max-width: 300px;
+
   }
   
   .footer .share a {
     margin: 0 0.5rem;
+    color: Lime ;
   }
   
   .footer .links {
     display: flex;
     align-items: center;
     margin-bottom: 0.5rem;
+    color: Bright Yellow  ;
   }
   
   .footer .email {
     width: 70%;
     padding: 0.5rem;
     margin-right: 0.5rem;
+    color:cyan;
   }
   
   .footer .btn {
     padding: 0.5rem 1rem;
     cursor: pointer;
+    color: Magenta;
+    background-color: cyan;
   }
   
   .credit {
@@ -63,3 +69,5 @@ html, body {
     font-size: 0.9rem;
   }
   
+
+
