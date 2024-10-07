@@ -1,56 +1,104 @@
-/* Help.css */
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
+/* Help container styles */
 .help-container {
     max-width: 800px;
-    margin: 20px auto;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding-top: 5%;
+    margin: 0 auto;
+    padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.help-container h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #4CAF50;
-    padding-top: 5%;
-}
-
-.help-section {
-    margin-bottom: 30px;
-}
-
-.help-section h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
+/* Light mode styles */
+.light-mode {
+    background-color: #f9f9f9;
     color: #333;
 }
 
-.help-section p, .help-section ul, .help-section ol {
-    font-size: 16px;
-    line-height: 1.6;
+.light-mode h1, .light-mode h2, .light-mode h3 {
+    color: #2c3e50;
 }
 
-.help-section ul, .help-section ol {
-    padding-left: 20px;
+.light-mode a {
+    color: #3498db;
 }
 
-.help-section a {
-    color: #4CAF50;
-    text-decoration: none;
-}
-
-.help-section a:hover {
+.light-mode a:hover {
     text-decoration: underline;
 }
 
+/* Dark mode styles */
+.dark-mode {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.dark-mode h1, .dark-mode h2, .dark-mode h3 {
+    color: #ecf0f1;
+}
+
+.dark-mode a {
+    color: #1abc9c;
+}
+
+.dark-mode a:hover {
+    text-decoration: underline;
+}
+
+/* Help section styles */
+.help-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Light mode section background */
+.light-mode .help-section {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+}
+
+/* Dark mode section background */
+.dark-mode .help-section {
+    background-color: #34495e;
+    border: 1px solid #3b5998;
+}
+
+/* List styles */
+ol, ul {
+    margin: 10px 0 20px 20px;
+}
+
+/* FAQ styles */
 .faq h3 {
-    font-size: 18px;
-    margin-top: 20px;
-    color: #333;
+    margin-top: 10px;
+    color: #1abc9c; /* Change FAQ question color */
 }
 
 .faq p {
-    font-size: 16px;
-    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .help-container {
+        padding: 10px;
+    }
+
+    .help-section {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1.25em;
+    }
 }
