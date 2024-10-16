@@ -11,7 +11,7 @@ function Signup() {
         // Hash the password in a real application
         const hashedPassword = password; 
 
-        const response = await fetch('http://localhost:5000/users', {
+        const response = await fetch('http://localhost:5000/api/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
