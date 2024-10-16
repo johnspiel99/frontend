@@ -9,7 +9,7 @@ function Signup() {
     const handleSignup = async (e) => {
         e.preventDefault();
         // Hash the password in a real application
-        const hashedPassword = password; // For demonstration, using plain password
+        const hashedPassword = password; 
 
         const response = await fetch('http://localhost:5000/users', {
             method: 'POST',
