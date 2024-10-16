@@ -7,9 +7,13 @@ function Login() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
+    // Handle user login
     const handleLogin = async (e) => {
         e.preventDefault();
+        setErrorMessage(''); // Clear previous error message
+
         try {
             const response = await fetch(`http://localhost:5000/users?email=${email}&password=${password}`);
             const data = await response.json();
@@ -19,16 +23,19 @@ function Login() {
                 localStorage.setItem('userId', userId);
                 setIsSubmitted(true);
             } else {
-                alert('Login failed. Check your credentials.');
+                setErrorMessage('Login failed. Check your credentials.');
             }
         } catch (error) {
             console.error('Error during login:', error);
-            alert('An error occurred while logging in. Please try again later.');
+            setErrorMessage('An error occurred while logging in. Please try again later.');
         }
     };
 
+    // Handle password reset
     const handleForgotPassword = async (e) => {
         e.preventDefault();
+        setErrorMessage(''); // Clear previous error message
+
         try {
             const response = await fetch('http://localhost:5000/forgot-password', {
                 method: 'POST',
@@ -41,16 +48,14 @@ function Login() {
             const data = await response.json();
             if (data.success) {
                 alert('Password reset link has been sent to your email.');
-                setShowForgotPassword(false); // Hide the form
-                setTimeout(() => {
-                    window.location.reload(); // Reload the page
-                }, 1000); // Delay to allow the user to see the alert
+                setShowForgotPassword(false);
+                setForgotPasswordEmail('');
             } else {
-                alert('Failed to send password reset link. Check the email address.');
+                setErrorMessage('Failed to send password reset link. Check the email address.');
             }
         } catch (error) {
             console.error('Error during password reset:', error);
-            alert('An error occurred while sending the password reset link. Please try again later.');
+            setErrorMessage('An error occurred while sending the password reset link. Please try again later.');
         }
     };
 
@@ -80,6 +85,7 @@ function Login() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        {errorMessage && <p className="error-message">{errorMessage}</p>}
                         <button type="submit">Login</button>
                     </form>
                     <p className="forgot-password-link" onClick={() => setShowForgotPassword(true)}>
@@ -110,6 +116,7 @@ function Login() {
                             value={forgotPasswordEmail}
                             onChange={(e) => setForgotPasswordEmail(e.target.value)}
                         />
+                        {errorMessage && <p className="error-message">{errorMessage}</p>}
                         <button type="submit">Send Reset Link</button>
                         <p className="cancel-link" onClick={() => setShowForgotPassword(false)}>
                             Cancel
