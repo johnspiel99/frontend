@@ -5,23 +5,29 @@ function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSignup = async (e) => {
         e.preventDefault();
-        // Hash the password in a real application
-        const hashedPassword = password; 
 
-        const response = await fetch('http://localhost:5000/api/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password: hashedPassword }),
-        });
+        try {
+            const response = await fetch('http://localhost:5000/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }), // Send plain password
+            });
 
-        const data = await response.json();
-        if (data) {
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Signup failed');
+            }
+
             setIsSubmitted(true);
+            setError('');
+        } catch (err) {
+            setError(err.message);
         }
     };
 
@@ -31,6 +37,7 @@ function Signup() {
                 {!isSubmitted ? (
                     <>
                         <h1>Sign Up</h1>
+                        {error && <p className="error-message">{error}</p>}
                         <label>Email</label>
                         <input
                             type="email"

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Import eye icons
 import './Login.css'; // Import the CSS file for styling
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showPassword, setShowPassword] = useState(false); // State for password visibility
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     // Handle user login
     const handleLogin = async (e) => {
@@ -15,15 +17,21 @@ function Login() {
         setErrorMessage(''); // Clear previous error message
 
         try {
-            const response = await fetch(`http://localhost:5000/users?email=${email}&password=${password}`);
-            const data = await response.json();
+            const response = await fetch('http://localhost:5000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-            if (data.length > 0) {
-                const userId = data[0].id;
-                localStorage.setItem('userId', userId);
-                setIsSubmitted(true);
+            const data = await response.json();
+            if (response.ok) {
+                // Handle successful login
+                setSuccessMessage(data.message);
+                localStorage.setItem('userId', data.user.id); // Store user ID
             } else {
-                setErrorMessage('Login failed. Check your credentials.');
+                setErrorMessage(data.error);
             }
         } catch (error) {
             console.error('Error during login:', error);
@@ -35,9 +43,10 @@ function Login() {
     const handleForgotPassword = async (e) => {
         e.preventDefault();
         setErrorMessage(''); // Clear previous error message
+        setSuccessMessage(''); // Clear previous success message
 
         try {
-            const response = await fetch('http://localhost:5000/forgot-password', {
+            const response = await fetch('http://localhost:5000/api/forgot-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,22 +55,22 @@ function Login() {
             });
 
             const data = await response.json();
-            if (data.success) {
-                alert('Password reset link has been sent to your email.');
-                setShowForgotPassword(false);
-                setForgotPasswordEmail('');
+            if (response.ok) {
+                setSuccessMessage(data.message);
+                setForgotPasswordEmail(''); // Clear input
+                setShowForgotPassword(false); // Hide the forgot password form
             } else {
-                setErrorMessage('Failed to send password reset link. Check the email address.');
+                setErrorMessage(data.error);
             }
         } catch (error) {
             console.error('Error during password reset:', error);
-            setErrorMessage('An error occurred while sending the password reset link. Please try again later.');
+            setErrorMessage('An error occurred while sending the reset link. Please try again later.');
         }
     };
 
     return (
         <div className="login-container">
-            {!isSubmitted ? (
+            {!showForgotPassword ? (
                 <div className="login-form">
                     <h1>Login</h1>
                     <form onSubmit={handleLogin}>
@@ -76,16 +85,34 @@ function Login() {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <label htmlFor="password">Password</label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            placeholder="Password"
-                            required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                id="password"
+                                name="password"
+                                 // Toggle visibility
+                                placeholder="Password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    border: 'none',
+                                    background: 'transparent',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                            </button>
+                        </div>
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
+                        {successMessage && <p className="success-message">{successMessage}</p>}
                         <button type="submit">Login</button>
                     </form>
                     <p className="forgot-password-link" onClick={() => setShowForgotPassword(true)}>
@@ -96,13 +123,6 @@ function Login() {
                     </p>
                 </div>
             ) : (
-                <div className="login-success">
-                    <p>You have successfully logged in!</p>
-                    <p><a href="/home">Go to Home</a></p>
-                </div>
-            )}
-
-            {showForgotPassword && (
                 <div className="forgot-password-form">
                     <h2>Forgot Password</h2>
                     <form onSubmit={handleForgotPassword}>
@@ -117,6 +137,7 @@ function Login() {
                             onChange={(e) => setForgotPasswordEmail(e.target.value)}
                         />
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
+                        {successMessage && <p className="success-message">{successMessage}</p>}
                         <button type="submit">Send Reset Link</button>
                         <p className="cancel-link" onClick={() => setShowForgotPassword(false)}>
                             Cancel
