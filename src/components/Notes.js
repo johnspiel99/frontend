@@ -49,7 +49,7 @@ const Notes = () => {
                     date: newNote.date,
                 };
                 const response = await fetch(`http://localhost:5000/notes/${noteIdToEdit}`, {
-                    method: 'PUT',
+                    method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(updatedNote),
                 });
