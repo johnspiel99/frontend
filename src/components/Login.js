@@ -2,69 +2,47 @@ import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Import eye icons
 import './Login.css'; // Import the CSS file for styling
 
+const mockUser = {
+    email: 'test@example.com',
+    password: 'password123', // Example password
+};
+
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // State for password visibility
+    const [showPassword, setShowPassword] = useState(false);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
     // Handle user login
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
         setErrorMessage(''); // Clear previous error message
 
-        try {
-            const response = await fetch('http://localhost:5000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                // Handle successful login
-                setSuccessMessage(data.message);
-                localStorage.setItem('userId', data.user.id); // Store user ID
-            } else {
-                setErrorMessage(data.error);
-            }
-        } catch (error) {
-            console.error('Error during login:', error);
-            setErrorMessage('An error occurred while logging in. Please try again later.');
+        if (email === mockUser.email && password === mockUser.password) {
+            // Handle successful login
+            setSuccessMessage('Login successful!');
+            localStorage.setItem('userId', 'mockUserId'); // Mock user ID
+        } else {
+            setErrorMessage('Invalid email or password');
         }
     };
 
     // Handle password reset
-    const handleForgotPassword = async (e) => {
+    const handleForgotPassword = (e) => {
         e.preventDefault();
         setErrorMessage(''); // Clear previous error message
         setSuccessMessage(''); // Clear previous success message
 
-        try {
-            const response = await fetch('http://localhost:5000/api/forgot-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: forgotPasswordEmail }),
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                setSuccessMessage(data.message);
-                setForgotPasswordEmail(''); // Clear input
-                setShowForgotPassword(false); // Hide the forgot password form
-            } else {
-                setErrorMessage(data.error);
-            }
-        } catch (error) {
-            console.error('Error during password reset:', error);
-            setErrorMessage('An error occurred while sending the reset link. Please try again later.');
+        // Simulate sending a password reset link
+        if (forgotPasswordEmail === mockUser.email) {
+            setSuccessMessage('Password reset link sent!');
+            setForgotPasswordEmail(''); // Clear input
+            setShowForgotPassword(false); // Hide the forgot password form
+        } else {
+            setErrorMessage('Email not found');
         }
     };
 
@@ -89,7 +67,7 @@ function Login() {
                             <input
                                 id="password"
                                 name="password"
-                                 // Toggle visibility
+                                type={showPassword ? 'text' : 'password'} // Toggle visibility
                                 placeholder="Password"
                                 required
                                 value={password}
