@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Import eye icons
-import './Login.css'; // Import the CSS file for styling
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import './Login.css';
 
 const mockUser = {
     email: 'test@example.com',
-    password: 'password123', // Example password
+    password: 'password123',
 };
 
 function Login() {
@@ -15,16 +16,18 @@ function Login() {
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    
+    const navigate = useNavigate(); // Use useNavigate for redirection
 
     // Handle user login
     const handleLogin = (e) => {
         e.preventDefault();
-        setErrorMessage(''); // Clear previous error message
+        setErrorMessage('');
 
         if (email === mockUser.email && password === mockUser.password) {
-            // Handle successful login
             setSuccessMessage('Login successful!');
-            localStorage.setItem('userId', 'mockUserId'); // Mock user ID
+            localStorage.setItem('userId', 'mockUserId');
+            navigate('/home'); // Redirect to Home page after successful login
         } else {
             setErrorMessage('Invalid email or password');
         }
@@ -33,14 +36,13 @@ function Login() {
     // Handle password reset
     const handleForgotPassword = (e) => {
         e.preventDefault();
-        setErrorMessage(''); // Clear previous error message
-        setSuccessMessage(''); // Clear previous success message
+        setErrorMessage('');
+        setSuccessMessage('');
 
-        // Simulate sending a password reset link
         if (forgotPasswordEmail === mockUser.email) {
             setSuccessMessage('Password reset link sent!');
-            setForgotPasswordEmail(''); // Clear input
-            setShowForgotPassword(false); // Hide the forgot password form
+            setForgotPasswordEmail('');
+            setShowForgotPassword(false);
         } else {
             setErrorMessage('Email not found');
         }
@@ -67,7 +69,7 @@ function Login() {
                             <input
                                 id="password"
                                 name="password"
-                                type={showPassword ? 'text' : 'password'} // Toggle visibility
+                                type={showPassword ? 'text' : 'password'}
                                 placeholder="Password"
                                 required
                                 value={password}
