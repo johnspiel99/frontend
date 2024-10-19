@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'; // Import useState and useEffect for managing carousel visibility
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import Contact from './components/Contact';
-import Login from './components/Login';
+import Login from './components/Login'; // Import the Login component
 import './App.css';
 import Help from './components/Help';
 import Footer from './components/Footer';
@@ -14,42 +14,37 @@ import Notes from './components/Notes';
 const App = () => {
     const [showCarousel, setShowCarousel] = useState(true);
 
-    // Function to handle showing the carousel only on the Home route
-    const handleRouteChange = (route) => {
-        if (route === '/home') {
-            setShowCarousel(true);
-        } else {
-            setShowCarousel(false);
-        }
+    // Function to handle clicks anywhere on the page
+    const handleClick = () => {
+        setShowCarousel(false);
     };
 
-    // Function to check if a user is authenticated
-    const isAuthenticated = () => {
-        return localStorage.getItem('userId') !== null;
-    };
+    // Set up a click event listener when the component mounts
+    useEffect(() => {
+        // Attach event listener
+        document.addEventListener('click', handleClick);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            document.removeEventListener('click', handleClick);
+        };
+    }, []);
 
     return (
         <Router>
             <Header />
+            {/* Main content area */}
             <div className="app-container">
                 <Routes>
-                    <Route path="/help" element={<Help />} />
-                    <Route path="/contact" element={<Contact />} />
+                    <Route path='/Help' element={<Help />} />
+                    <Route path='/contact' element={<Contact />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
-                    
-                    {/* Protected Route for Notes */}
-                    <Route 
-                        path="/notes" 
-                        element={isAuthenticated() ? <Notes /> : <Navigate to="/login" />} 
-                    />
-
-                    {/* Redirect unknown paths to Home */}
-                    <Route path="*" element={<Navigate to="/home" />} />
+                    <Route path='/blog' element={<Notes />} />
+                    {/* Route for Carousel removed */}
                 </Routes>
-
-                {/* Conditionally render the Swiper carousel only on Home */}
+                {/* Conditionally render the Swiper carousel */}
                 {showCarousel && <Carousel />}
             </div>
             <Footer />
